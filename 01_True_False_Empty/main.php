@@ -1,8 +1,8 @@
 <?php
 require_once(__DIR__ . '/../lib/php-cli-tools/vendor/autoload.php');
 
-$exps = ["True == %s", "False == %s", "empty(%s)"];
-$exps_name = ["True == ", "False == ", "empty()"];
+$exps = ["True == %s", "False == %s", "empty(%s)", "NULL == %s"];
+$exps_name = ["True == ", "False == ", "empty()", "NULL == "];  // %s 会引起的 php-cli-tools 画表格时的Bug。
 $cases = [
   '1',
   '0',
@@ -13,6 +13,9 @@ $cases = [
   '""',
   'array()',
   '[]',
+  '',
+  'NULL',
+  '"NULL"',
 ];
 
 $rows = [];
