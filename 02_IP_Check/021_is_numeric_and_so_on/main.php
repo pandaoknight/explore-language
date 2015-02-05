@@ -30,6 +30,7 @@ $exps = [
   "round(%s, 4)",
   "round(%s, 5)",
 ];*/
+//$exps = ["sizeof(%s)", "count(%s)"];
 
 $exps_name = array_map(function($s){return str_replace("%s", "", $s);}, $exps);// %s 会引起的 php-cli-tools 画表格时的Bug。
 $cases = [
