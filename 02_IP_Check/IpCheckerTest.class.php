@@ -50,7 +50,8 @@ class IpCheckTest extends PHPUnit_Framework_TestCase{
 
   public function testCheck_leading_zero(){
     $this->assertTrue($this->_test_object->check("108.2.37.0"));
-    // 我们认为前导0是不合法的
+    // 我们认为前导0是不合法的，因为在Ubuntu下，IP中前导0的数字会被当做8进制来解释。例如：
+    // ping xxx.xxx.xxx.077 => PING xxx.xxx.xxx.077 (xxx.xxx.xxx.63)
     $this->assertFalse($this->_test_object->check("0108.2.37.0"));
     $this->assertFalse($this->_test_object->check("108.02.37.0"));
     $this->assertFalse($this->_test_object->check("108.2.037.0"));
@@ -62,6 +63,12 @@ class IpCheckTest extends PHPUnit_Framework_TestCase{
     $this->assertFalse($this->_test_object->check("108.2.00037.0"));
     $this->assertFalse($this->_test_object->check("108.002.37.0"));
     $this->assertFalse($this->_test_object->check("108.0002.37.0"));
+
+    $this->assertTrue($this->_test_object->check("0.0.0.0"));
+    $this->assertFalse($this->_test_object->check("00.0.0.0"));
+    $this->assertFalse($this->_test_object->check("0.000.0.0"));
+    $this->assertFalse($this->_test_object->check("0.0.0.00"));
+    $this->assertFalse($this->_test_object->check("0.0.0.0000"));
   }
 }
 ?>
